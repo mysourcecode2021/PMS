@@ -1,0 +1,336 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var name = HttpContextAccessor.HttpContext!.Session.GetString("Name");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyApps</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/assets/dist/css/adminlte.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/assets/plugins/toastr/toastr.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Datepicker -->
+    <link href="~/css/datepicker.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(".date-format").datepicker();
+            $(".dpMonth").datepicker({
+                format: "yyyymm",
+                startView: "months",
+                minViewMode: "months"
+            });
+
+            var parent = sessionStorage.getItem("ParentMenu");
+            var child = sessionStorage.getItem("ChildMenu");
+            $("[header-menu='" + parent + "']").addClass("menu-open");
+            $("[header-name='" + parent + "']").addClass("active");
+            $("[child-menu='" + child + "']").addClass("active");
+
+            $(".navChild").click(function () {
+                sessionStorage.setItem("ParentMenu", $(this).attr("parent-menu"));
+                sessionStorage.setItem("ChildMenu", $(this).attr("child-menu"));
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link">
+                <img src="~/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">PMS</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/assets/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">@name</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item" header-menu="Master">
+                            <a href="#" class="nav-link" header-name="Master">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Master
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/Department" class="nav-link navChild" parent-menu="Master" child-menu="Department">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Department</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Position" class="nav-link navChild" parent-menu="Master" child-menu="Position">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Position</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/SystemMaster" class="nav-link navChild" parent-menu="Master" child-menu="SystemMaster">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>System Master</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Calendar" class="nav-link navChild" parent-menu="Master" child-menu="Calendar">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Calendar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Salary" class="nav-link navChild" parent-menu="Master" child-menu="Salary">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Salary</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/TarifEffective" class="nav-link navChild" parent-menu="Master" child-menu="TarifEffective">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tarif Effective</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/BonusRate" class="nav-link navChild" parent-menu="Master" child-menu="BonusRate">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Bonus Rate</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Employee" class="nav-link navChild" parent-menu="Master" child-menu="Employee">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Employee</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item" header-menu="Transaction">
+                            <a href="#" class="nav-link" header-name="Transaction">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Transaction
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/MappingBonusRate" class="nav-link navChild" parent-menu="Transaction" child-menu="MappingBonusRate">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Mapping Bonus Rate</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Attendance" class="nav-link navChild" parent-menu="Transaction" child-menu="Attendance">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Attendance</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Loan" class="nav-link navChild" parent-menu="Transaction" child-menu="Loan">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Loan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/MedicalInsurance" class="nav-link navChild" parent-menu="Transaction" child-menu="MedicalInsurance">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Medical Insurance</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/BPJSEmployment" class="nav-link navChild" parent-menu="Transaction" child-menu="BPJSEmployment">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>BPJS Employment</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/BPJSHealth" class="nav-link navChild" parent-menu="Transaction" child-menu="BPJSHealth">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>BPJS Health</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Benefit" class="nav-link navChild" parent-menu="Transaction" child-menu="Benefit">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Benefit</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Overtime" class="nav-link navChild" parent-menu="Transaction" child-menu="Overtime">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Overtime</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/SalaryEmployee" class="nav-link navChild" parent-menu="Transaction" child-menu="SalaryEmployee">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Salary Employee</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/THREmployee" class="nav-link navChild" parent-menu="Transaction" child-menu="THREmployee">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>THR Employee</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/BonusEmployee" class="nav-link navChild" parent-menu="Transaction" child-menu="BonusEmployee">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Bonus Employee</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item" header-menu="Reporting">
+                            <a href="#" class="nav-link" header-name="Reporting">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Reporting
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/ReportMI" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportMI">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Medical Insurance</p>
+                                    </a>
+                                    <a href="/ReportBPJSTK" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportBPJSTK">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>BPJS Employment</p>
+                                    </a>
+                                    <a href="/ReportBPJSKes" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportBPJSKes">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>BPJS Health</p>
+                                    </a>
+                                    <a href="/ReportPayment" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportPayment">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Salary</p>
+                                    </a>
+                                    <a href="/ReportPPh21" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportPPh21">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>PPh21</p>
+                                    </a>
+                                    <a href="/ReportToBank" class="nav-link navChild" parent-menu="Reporting" child-menu="ReportToBank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Report To Bank</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/ChangePassword" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>Change Password</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Home/SignOut" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>Sign Out</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content" style="margin-top: 10px">
+                @RenderBody()
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; 2024 Payroll Management System (PMS).</strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- Bootstrap 4 -->
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/assets/dist/js/adminlte.min.js"></script>
+    <!-- Toastr -->
+    <script src="~/assets/plugins/toastr/toastr.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/assets/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/assets/plugins/moment/moment.min.js"></script>
+    <script src="~/assets/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- Datepicker -->
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+    <!-- Plugin Validate Form -->
+    <script src="~/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

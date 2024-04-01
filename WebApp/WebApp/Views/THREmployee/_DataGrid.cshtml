@@ -1,0 +1,70 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Periode</th>
+            <th>Basic Salary</th>
+            <th>Total Month Work</th>
+            <th>THR Amount</th>
+            <th>Generate Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@r.Periode</td>
+                        <td>@string.Format("{0:#,0.00}", r.BasicSalary)</td>
+                        <td>@r.TotalMonthWork</td>
+                        <td>@string.Format("{0:#,0.00}", r.THRAmount)</td>
+                        <td>@r.GenerateDate.ToString("MM/dd/yyyy")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnExport").prop("disabled", false);
+        } else {
+            $("#btnExport").prop("disabled", true);
+        }
+    });
+</script>

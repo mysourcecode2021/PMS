@@ -1,0 +1,126 @@
+﻿@model PagingModel<List<dynamic>>
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title" style="height: 10px; width: 50%">
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <select class="form-control pageSize" style="width: 75px; height: 30px; font-size: 12px" onchange="getData()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-10 small">Showing @((Model.CurrentPageNumber == 1) ? ((Model.TotalRecords == 0) ? 0 : Model.CurrentPageNumber) : ((Model.CurrentPageNumber * Model.PageSize) - Model.PageSize) + 1) to @(((Model.CurrentPageNumber * Model.PageSize) > @Model.TotalRecords) ? @Model.TotalRecords : (Model.CurrentPageNumber * Model.PageSize)) of @Model.TotalRecords</label>
+                </div>
+            </div>
+            <div class="card-tools">
+                @if (Model.TotalPages > 1)
+                {
+                    <ul class="pagination small">
+                        <li class="page-item">
+                            @if (Model.CurrentPageNumber > 1)
+                            {
+                                <a class="page-link pageLink" href="javascript:void(0)" data-page="@(Model.CurrentPageNumber - 1)" onclick="getData(@(Model.CurrentPageNumber - 1))">Prev</a>
+                            }
+                            else
+                            {
+                                <a class="page-item disabled">
+                                    <span class="page-link">Prev</span>
+                                </a>
+                            }
+                        </li>
+
+                        @{
+                            var currentPage = (int)Model.CurrentPageNumber;
+                            var pageCount = (int)Model.TotalPages;
+
+                            // How many pages views right or left of currentPage
+                            const int PageLeft = 2;
+                            const int PagesRight = 2;
+
+                            // get first page befor ...
+                            var fromPage = Math.Max(1, currentPage - PageLeft);
+
+                            // get last page after ...
+                            var toPage = Math.Min(pageCount, currentPage + PagesRight);
+
+                            if (pageCount - toPage == 1)
+                            {
+                                toPage = pageCount;
+                            }
+
+                            if (fromPage > 1)
+                            {
+                                // view First page
+                                <li>
+                                    <a class="page-link pageLink" href="javascript:void(0)" data-page="1" onclick="getData()">1</a>
+                                </li>
+                                if (fromPage > 2)
+                                {
+                                    // view first ...
+                                    // calculate number page for link ..., it's middle between first page and fromPage
+                                    var middleNumber = (int)Math.Ceiling((double)(fromPage - 2) / 2) + 1;
+                                    <li>
+                                        <a class="page-link pageLink" href="javascript:void(0)" data-page="@middleNumber" onclick="getData(@middleNumber)">...</a>
+                                    </li>
+                                }
+                            }
+
+                            // view paginator between currentPage
+                            for (int i = fromPage; i <= toPage; i++)
+                            {
+                                <li @Html.Raw(currentPage == i ? "class=\"page-item active\"" : "")>
+                                    <a class="page-link pageLink" href="javascript:void(0)" data-page="@i" onclick="getData(@i)">@i</a>
+                                </li>
+                            }
+
+                            // view second ...
+                            if (toPage < pageCount)
+                            {
+                                int middleNumber = (int)Math.Ceiling((double)(pageCount - toPage) / 2) + toPage;
+                                <li>
+                                    <a class="page-link pageLink" href="javascript:void(0)" data-page="@middleNumber" onclick="getData(@middleNumber)">...</a>
+                                </li>
+                                // view last page
+                                if (toPage < pageCount - 1)
+                                {
+                                    <li>
+                                        <a class="page-link pageLink" href="javascript:void(0)" data-page="@pageCount" onclick="getData(@pageCount)">@pageCount</a>
+                                    </li>
+                                }
+                            }
+                        }
+
+                        <li class="page-item">
+                            @if (Model.CurrentPageNumber < Model.TotalPages)
+                            {
+                                <a class="page-link pageLink" href="javascript:void(0)" data-page="@(Model.CurrentPageNumber + 1)" onclick="getData(@(Model.CurrentPageNumber + 1))">Next</a>
+                            }
+                            else
+                            {
+                                <a class="page-item disabled">
+                                    <span class="page-link">Next</span>
+                                </a>
+                            }
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <span>&nbsp;</span>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        $(".pageSize").val("@Model?.PageSize");
+    });
+</script>

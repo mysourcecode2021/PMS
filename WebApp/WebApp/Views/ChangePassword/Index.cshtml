@@ -1,0 +1,98 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Change Password";
+    var name = HttpContextAccessor.HttpContext!.Session.GetString("Name");
+    var userId = HttpContextAccessor.HttpContext!.Session.GetString("UserId");
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Change Password</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" value="@name" disabled />
+        </div>
+        <div class="form-group">
+            <label>Old Password<font color='red'>*</font></label>
+            <input type="password" name="OldPassword" data-name="OldPassword" class="form-control" placeholder="Old Password" />
+        </div>
+        <hr />
+        <div class="form-group">
+            <label>New Password<font color='red'>*</font></label>
+            <input type="password" name="NewPassword" data-name="NewPassword" class="form-control" placeholder="New Password" />
+        </div>
+        <div class="form-group">
+            <label>Confirm Password<font color='red'>*</font></label>
+            <input type="password" name="ConfirmPassword" data-name="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+        </div>
+        <div class="card-footer">
+            <input type="hidden" data-name="UserId" value="@userId" />
+            <button type="submit" class="btn btn-primary" id="btnSave">Change Password</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#btnSave").click(function () {
+            if ($("[name='Name']").val() == "") {
+                toastr.error("Name must be fill");
+                return;
+            }
+            if ($("[name='Password']").val() == "") {
+                toastr.error("Password must be fill");
+                return;
+            }
+            
+            if ($("[data-name='NewPassword']").val() != $("[data-name='ConfirmPassword']").val()) {
+                toastr.error("Confirm Password not match");
+                return;
+            }
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This data will be processed!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, do it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var param = {};
+                    param["UserId"] = $("[data-name='UserId']").val();
+                    param["OldPassword"] = $("[data-name='OldPassword']").val();
+                    param["NewPassword"] = $("[data-name='NewPassword']").val();
+                    param["ConfirmPassword"] = $("[data-name='ConfirmPassword']").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/ChangePassword/ChangePass",
+                        data: JSON.stringify(param),
+                        contentType: "application/json; charset=utf-8",
+                        beforeSend: function () {
+                            $('.btn').prop('disabled', true);
+                        },
+                        complete: function () {
+                            $('.btn').prop('disabled', false);
+                        },
+                        success: function (result) {
+                            if (result == "Success") {
+                                toastr.success("Data has been processed successfully");
+                                location.href = "/Home/SignOut";
+                            } else {
+                                toastr.error(result);
+                            }
+                        },
+                        error: function (result) {
+                            toastr.error(result.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

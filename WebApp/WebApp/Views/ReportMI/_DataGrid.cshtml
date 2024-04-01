@@ -1,0 +1,96 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th rowspan="2">Periode</th>
+            <th rowspan="2">NIK</th>
+            <th rowspan="2">Name</th>
+            <th colspan="12" style="text-align: center">Medical Ins.</th>
+            <th rowspan="2">Total Medical Ins<br />Setahun</th>
+        </tr>
+        <tr>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Aug</th>
+            <th>Sep</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Dec</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach (var r in data.Data)
+                {
+                    <tr>
+                        <td>@r.Periode</td>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@string.Format("{0:#,0.00}", r.January)</td>
+                        <td>@string.Format("{0:#,0.00}", r.February)</td>
+                        <td>@string.Format("{0:#,0.00}", r.March)</td>
+                        <td>@string.Format("{0:#,0.00}", r.April)</td>
+                        <td>@string.Format("{0:#,0.00}", r.May)</td>
+                        <td>@string.Format("{0:#,0.00}", r.June)</td>
+                        <td>@string.Format("{0:#,0.00}", r.July)</td>
+                        <td>@string.Format("{0:#,0.00}", r.August)</td>
+                        <td>@string.Format("{0:#,0.00}", r.September)</td>
+                        <td>@string.Format("{0:#,0.00}", r.October)</td>
+                        <td>@string.Format("{0:#,0.00}", r.November)</td>
+                        <td>@string.Format("{0:#,0.00}", r.December)</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalIuran)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="16" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnEdit").show();
+            $("#btnDelete").show();
+            $("#btnExport").show();
+        } else {
+            $("#btnEdit").hide();
+            $("#btnDelete").hide();
+            $("#btnExport").hide();
+        }
+    });
+</script>

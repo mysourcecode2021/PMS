@@ -1,0 +1,667 @@
+﻿
+@{
+    ViewData["Title"] = "BPJSEmployment";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">BPJSEmployment</h3>
+        <div class="card-tools col-md-10">
+            <div class="input-group">
+                <input type="text" class="form-control dpMonth" id="PeriodeFilter" />
+                @*<select class="custom-select" id="PeriodeYear">
+                    <option value="">--Year--</option>
+                    @foreach (var r in (List<dynamic>)ViewData["YEAR"]!)
+                    {
+                        <option value="@r.SystemCode">@r.SystemValue</option>
+                    }
+                </select>
+                <select class="custom-select" id="PeriodeMonth">
+                    <option value="">--Month--</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="08">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>*@
+                <div class="input-group-append">
+                    &nbsp;
+                    <button class="btn btn-outline-primary" type="button" id="btnGenerate">Generate BPJS</button>
+                    &nbsp;
+                    <a class="btn btn-primary btn-sm" id="btnSearch" href="javascript:void(0)">
+                        <i class="fas fa-search">
+                        </i>
+                        Search
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-danger btn-sm" id="btnClear" href="javascript:void(0)">
+                        <i class="fas fa-eraser">
+                        </i>
+                        Clear
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-primary btn-sm" id="btnAdd" href="javascript:void(0)">
+                        <i class="fas fa-plus">
+                        </i>
+                        Add
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-warning btn-sm" id="btnEdit" href="javascript:void(0)">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-danger btn-sm" id="btnDelete" href="javascript:void(0)">
+                        <i class="fas fa-trash">
+                        </i>
+                        Delete
+                    </a>
+                    &nbsp;
+                    <a class="btn btn-secondary btn-sm" id="btnExport" href="javascript:void(0)">
+                        <i class="fas fa-file-export">
+                        </i>
+                        Export Data
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row table-responsive" id="_content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="_modal-form" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Form BPJS Employment</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="_formId">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>NIK<font color='red'>*</font></label>
+                                    <select name="NIK" data-name="NIK" class="form-control select2bs4 _formInput mandatory isKey" placeholder="NIK" onchange="getSalary()">
+                                        <option value="">--NIK--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["NIKName"]!)
+                                        {
+                                            <option value="@r.NIK">@r.NIK - @r.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periode<font color='red'>*</font></label>
+                                    <input type="text" name="Periode" data-name="Periode" class="form-control dpMonth _formInput mandatory isKey" placeholder="Periode" />
+                                </div>
+                                <div class="form-group">
+                                    <label>KPJ<font color='red'>*</font></label>
+                                    <input type="text" name="KPJ" data-name="KPJ" class="form-control _formInput mandatory" placeholder="KPJ" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Kep Awal</label>
+                                    <input type="text" name="KepAwal" data-name="KepAwal" class="form-control date-format _formInput" placeholder="Kep Awal" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Basic Salary<font color='red'>*</font></label>
+                                    <input type="text" name="Basicsalary" data-name="Basicsalary" class="form-control _formInput mandatory isDisabled" placeholder="Basic Salary" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Allowance<font color='red'>*</font></label>
+                                    <input type="text" name="Allowance" data-name="Allowance" class="form-control _formInput mandatory isDisabled" placeholder="Allowance" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Salary<font color='red'>*</font></label>
+                                    <input type="text" name="Salary" data-name="Salary" class="form-control _formInput mandatory isDisabled" placeholder="Salary" disabled />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Iuran JKK<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJKK" data-name="IuranJKK" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JKK" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Iuran JKM<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJKM" data-name="IuranJKM" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JKM" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Iuran JHT TK<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJHTTK" data-name="IuranJHTTK" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JHT TK" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Iuran JHT Company<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJHTCompany" data-name="IuranJHTCompany" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JHT Company" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Base Calculation<font color='red'>*</font></label>
+                                    <input type="text" name="BaseCalculation" data-name="BaseCalculation" class="form-control _formInput mandatory isDisabled" placeholder="Base Calculation" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Iuran JP TK<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJPTK" data-name="IuranJPTK" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JP TK" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Iuran JP Company<font color='red'>*</font></label>
+                                    <input type="text" name="IuranJPCompany" data-name="IuranJPCompany" class="form-control _formInput mandatory isDisabled" placeholder="Iuran JP Company" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Iuran<font color='red'>*</font></label>
+                                    <input type="text" name="TotalIuran" data-name="TotalIuran" class="form-control _formInput mandatory isDisabled" placeholder="Total Iuran" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="hidden" data-name="Action" class="_formInput" />
+                        <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".select2bs4").select2({
+	        theme: 'bootstrap4'
+        });
+
+        getData(1, "Clear");
+
+        $(document).on('click', '#checkAll', function (e) {
+            if (this.checked) {
+                $(".checkboxes").prop("checked", true);
+            } else {
+                $(".checkboxes").prop("checked", false);
+            }
+        });
+
+        $("#btnSearch").click(function () {
+            getData(1);
+        });
+
+        $("#btnClear").click(function () {
+            $("._searchCriteria").val("");
+            $("#PeriodeFilter").val("");
+            getData(1, "Clear");
+        });
+
+        $("#btnAdd").click(function () {
+            $("._formInput").val("");
+            $('select').val("").trigger('change');
+            $(".isKey").prop("disabled", false);
+            $(".isDisabled").prop("disabled", true);
+            $("[data-name='Action']").val("Add");
+            $("#_modal-form").modal("show");
+        });
+
+        $("#btnEdit").click(function () {
+            var key1 = "";
+            var key2 = "";
+            $("#_grid tbody input[type=checkbox]:checked").each(function () {
+                key1 += ";" + $(this).attr("data-key").split("|")[0];
+                key2 += ";" + $(this).attr("data-key").split("|")[1];
+            });
+            key1 = (key1 != "") ? (";" + key1).replace(";;", "") : key1;
+            key2 = (key2 != "") ? (";" + key2).replace(";;", "") : key2;
+            if (key1 == "") {
+                toastr.error("Data has not been selected");
+                return;
+            }
+            if (key1.split(";").length > 1) {
+                toastr.error("Only one data can be selected");
+                return;
+            }
+
+            var param = {};
+            param["Param"] = key1 + "|" + key2;
+            param["Type"] = "GetByKey";
+
+            $.ajax({
+                type: "POST",
+                url: "/BPJSEmployment/GetDataByKey",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    var row = result[0];
+
+                    $("._formInput").each(function (i, obj) {
+                        if ($(obj).attr("class").indexOf("isKey") > 0) {
+                            $(obj).prop("disabled", "true");
+                        }
+                        
+                        if ($(obj).is("select")) {
+	                        $('[name="' + $(obj).attr("name") + '"]').val(row[$(obj).attr("data-name")]).trigger('change');
+                        } else {
+	                        $(obj).val(row[$(obj).attr("data-name")]);
+                        }
+                    });
+                    $("[data-name='Action']").val("Edit");
+                    $("#_modal-form").modal("show");
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+
+        $("#btnDelete").click(function () {
+            var key1 = "";
+            var key2 = "";
+            $("#_grid tbody input[type=checkbox]:checked").each(function () {
+                key1 += ";" + $(this).attr("data-key").split("|")[0];
+                key2 += ";" + $(this).attr("data-key").split("|")[1];
+            });
+            key1 = (key1 != "") ? (";" + key1).replace(";;", "") : key1;
+            key2 = (key2 != "") ? (";" + key2).replace(";;", "") : key2;
+            if (key1 == "") {
+                toastr.error("Data has not been selected");
+                return;
+            }
+            
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This data will be deleted!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, do it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var param = {};
+                    param["KeyValue"] = key1 + "|" + key2
+                    param["Action"] = "Delete";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/BPJSEmployment/SaveProcess",
+                        data: JSON.stringify(param),
+                        contentType: "application/json; charset=utf-8",
+                        beforeSend: function () {
+                            $('.btn').prop('disabled', true);
+                        },
+                        complete: function () {
+                            $('.btn').prop('disabled', false);
+                        },
+                        success: function (result) {
+                            if (result == "Success") {
+                                toastr.success("Data has been processed successfully");
+                                getData(1);
+                            } else {
+                                toastr.error(result);
+                            }
+                        },
+                        error: function (result) {
+                            toastr.error(result.responseText);
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#btnExport").click(function() {
+            var param = {};
+            var pValue = "";
+            $("._searchCriteria").each(function (i, obj) {
+                pValue += this.value + ";";
+            });
+            param["Param"] = pValue;
+            param["ParamHeader"] = $("#PeriodeFilter").val();
+            param["Type"] = "Export";
+            
+            $.ajax({
+                type: "POST",
+                url: "/BPJSEmployment/ExportExcel",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    var bytes = base64ToBytes(result);
+                    var blob = new Blob([bytes], { type: "application/octetstream" });
+
+                    var date = new Date();
+                    var dateStr =
+                        ("00" + (date.getMonth() + 1)).slice(-2) +
+                        ("00" + date.getDate()).slice(-2) +
+                        date.getFullYear() +
+                        ("00" + date.getHours()).slice(-2) +
+                        ("00" + date.getMinutes()).slice(-2) +
+                        ("00" + date.getSeconds()).slice(-2);
+                    var filename = "Data_" + dateStr + ".xlsx";
+
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var url = window.URL || window.webkitURL;
+                        var link = url.createObjectURL(blob);
+                        var a = $("<a />");
+                        a.attr("download", filename);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+
+        $("#btnSave").click(function() {
+            var isRules = {};
+            var isMessages = {};
+            $("._formInput").each(function (i, obj) {
+                if ($(obj).attr("class").toLowerCase().indexOf("mandatory") > 0) {
+                    isRules[$(obj).attr("data-name")] = { required: true };
+                    isMessages[$(obj).attr("data-name")] = { required: "Please enter a " + $(obj).attr("placeholder") };
+                }
+            });
+
+            $("#_formId").validate({
+                rules: isRules,
+                messages: isMessages,
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+                submitHandler: function (res) {
+                    onSaveProcess();
+                }
+            });
+        });
+
+        $("#btnGenerate").click(function() {
+            if ($("#PeriodeFilter").val() == "") {
+                toastr.error("Periode must be fill");
+                return;
+            }
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This data will be processed!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, do it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var param = {};
+                    param["Periode"] = $("#PeriodeFilter").val().toString();
+                    param["Act"] = "Generate";
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/BPJSEmployment/GenerateBPJS",
+                        data: JSON.stringify(param),
+                        contentType: "application/json; charset=utf-8",
+                        beforeSend: function () {
+                            $('.btn').prop('disabled', true);
+                        },
+                        complete: function () {
+                            $('.btn').prop('disabled', false);
+                        },
+                        success: function (result) {
+                            if (result == "Success") {
+                                toastr.success("Data has been processed successfully");
+                                getData(1);
+                            } else {
+                                if (result.indexOf("has been generated") > 0) {
+                                    Swal.fire({
+                                        title: "Are you sure to Re-Generate?",
+                                        text: result,
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Yes, do it!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            param = {};
+                                            param["Periode"] = $("#PeriodeFilter").val().toString();
+                                            param["Act"] = "Re-Generate";
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/BPJSEmployment/GenerateBPJS",
+                                                data: JSON.stringify(param),
+                                                contentType: "application/json; charset=utf-8",
+                                                beforeSend: function () {
+                                                    $('.btn').prop('disabled', true);
+                                                },
+                                                complete: function () {
+                                                    $('.btn').prop('disabled', false);
+                                                },
+                                                success: function (result) {
+                                                    if (result == "Success") {
+                                                        toastr.success("Data has been processed successfully");
+                                                        getData(1);
+                                                    } else {
+                                                        toastr.error(result);
+                                                    }
+                                                },
+                                                error: function (result) {
+                                                    toastr.error(result.responseText);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        error: function (result) {
+                            toastr.error(result.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    getData = function (page = 1, act = "") {
+        var param = {};
+        var pValue = "";
+        $("._searchCriteria").each(function (i, obj) {
+            pValue += this.value + ";";
+        });
+        param["Param"] = (act == "Clear") ? "-1" : pValue;
+        param["ParamHeader"] = $("#PeriodeFilter").val();
+        param["PageNumber"] = page;
+        param["RowsOfPage"] = ($(".pageSize").val() == undefined) ? 10 : $(".pageSize").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/BPJSEmployment/GetData",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $('.btn').prop('disabled', true);
+            },
+            complete: function () {
+                $('.btn').prop('disabled', false);
+            },
+            success: function (result) {
+                $("#_content").html(result);
+
+                if (act == "") {
+                    var parValue = param.Param.split(";");
+                    var seq = 0;
+                    $("._searchCriteria").each(function (i, obj) {
+                        $(obj).val(parValue[seq]);
+                        seq++;
+                    });
+                }
+            },
+            error: function (result) {
+                toastr.error(result.responseText);
+            }
+        });
+    }
+
+    onSaveProcess = function () {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This data will be processed!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var param = {};
+                $("._formInput").each(function (i, obj) {
+                    param[$(obj).attr("data-name")] = this.value;
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/BPJSEmployment/SaveProcess",
+                    data: JSON.stringify(param),
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                        $('.btn').prop('disabled', true);
+                    },
+                    complete: function () {
+                        $('.btn').prop('disabled', false);
+                    },
+                    success: function (result) {
+                        if (result == "Success") {
+                            toastr.success("Data has been processed successfully");
+                            $("._formInput").val("");
+                            $("._formInput").prop("disabled", false);
+                            $("#_modal-form").modal("hide");
+                            getData(1);
+                        } else {
+                            toastr.error(result);
+                        }
+                    },
+                    error: function (result) {
+                        toastr.error(result.responseText);
+                    }
+                });
+            }
+        });
+    }
+
+    base64ToBytes = function (base64) {
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    searchFilter = function (e) {
+        if (e.keyCode === 13) {
+            getData(1);
+        }
+    }
+
+    getSalary = function () {
+        if ($("[name='NIK']").val() != "") {
+            var param = {};
+            param["Param"] = $("[name='NIK']").val();
+            param["Type"] = "GetSalaryByNIK";
+
+            $.ajax({
+                type: "POST",
+                url: "/BPJSEmployment/GetDataByKey",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    if (result.length > 0) {
+                        for (var x = 0; x < result.length; x++) {
+                            if (result[x].Component == "Basic Salary") {
+                                $("[name='Basicsalary']").val(result[x].Amount);
+                            } else if (result[x].Component == "Position Allowance") {
+                                $("[name='Allowance']").val(result[x].Amount);
+                            }
+                        }
+
+                        $("[name='Salary']").val(parseFloat($("[name='Basicsalary']").val()) + parseFloat($("[name='Allowance']").val()));
+                        $("[name='IuranJKK']").val(((parseFloat("@ViewBag.IuranJKK") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                        $("[name='IuranJKM']").val(((parseFloat("@ViewBag.IuranJKM") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                        $("[name='IuranJHTTK']").val(((parseFloat("@ViewBag.IuranJHTTK") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                        $("[name='IuranJHTCompany']").val(((parseFloat("@ViewBag.IuranJHTCompany") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                        $("[name='BaseCalculation']").val((parseFloat($("[name='Salary']").val()) > parseFloat("@ViewBag.BaseCalculation")) ? "@ViewBag.BaseCalculation" : $("[name='Salary']").val());
+                        if (parseFloat($("[name='Salary']").val()) < parseFloat("@ViewBag.BaseCalculation")) {
+                            $("[name='IuranJPTK']").val(((parseFloat("@ViewBag.IuranJPTK") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                            $("[name='IuranJPCompany']").val(((parseFloat("@ViewBag.IuranJPCompany") / 100) * parseFloat($("[name='Salary']").val())).toFixed(2));
+                        } else {
+                            $("[name='IuranJPTK']").val(((parseFloat("@ViewBag.IuranJPTK") / 100) * parseFloat("@ViewBag.BaseCalculation")).toFixed(2));
+                            $("[name='IuranJPCompany']").val(((parseFloat("@ViewBag.IuranJPCompany") / 100) * parseFloat("@ViewBag.BaseCalculation")).toFixed(2));
+                        }
+                        $("[name='TotalIuran']").val((parseFloat($("[name='IuranJKK']").val()) + parseFloat($("[name='IuranJKM']").val()) + parseFloat($("[name='IuranJHTTK']").val()) + parseFloat($("[name='IuranJHTCompany']").val()) + parseFloat($("[name='IuranJPTK']").val()) + parseFloat($("[name='IuranJPCompany']").val())).toFixed(2));
+                    } else {
+                        $("[name='KPJ']").val("");
+                        $("[name='KepAwal']").val("");
+                        $("[name='Basicsalary']").val("");
+                        $("[name='Allowance']").val("");
+                        $("[name='Salary']").val("");
+                        $("[name='IuranJKK']").val("");
+                        $("[name='IuranJKM']").val("");
+                        $("[name='IuranJHTTK']").val("");
+                        $("[name='IuranJHTCompany']").val("");
+                        $("[name='IuranJPTK']").val("");
+                        $("[name='IuranJPCompany']").val("");
+                        $("[name='TotalIuran']").val("");
+                        $("[name='BaseCalculation']").val("");
+                        toastr.error("NIK not found");
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        }
+    }
+</script>

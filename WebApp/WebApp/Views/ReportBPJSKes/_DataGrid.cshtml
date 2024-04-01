@@ -1,0 +1,89 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th rowspan="2">NIK</th>
+            <th rowspan="2">No BPJS</th>
+            <th rowspan="2">Nama</th>
+            <th rowspan="2">Gaji Pokok</th>
+            <th rowspan="2">Tunjangan Tetap</th>
+            <th rowspan="2">Upah<br />(Gaji Pokok + Tunjangan Tetap)</th>
+            <th rowspan="2">Kelas Rawat</th>
+            <th colspan="4" style="text-align: center">Iuran BPJS Kesehatan</th>
+            <th rowspan="2">DOB</th>
+        </tr>
+        <tr>
+            <th>Dasar Perhitungan</th>
+            <th>Perusahaan<br />Rate 4%</th>
+            <th>Karyawan<br />Rate 1%</th>
+            <th>Iuran BPJS<br />Per Bulan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach (var r in data.Data)
+                {
+                    <tr>
+                        <td>@r.NIK</td>
+                        <td>@r.NoBPJS</td>
+                        <td>@r.Name</td>
+                        <td>@string.Format("{0:#,0.00}", r.GajiPokok)</td>
+                        <td>@string.Format("{0:#,0.00}", r.TunjanganTetap)</td>
+                        <td>@string.Format("{0:#,0.00}", r.Upah)</td>
+                        <td>@r.Class</td>
+                        <td>@string.Format("{0:#,0.00}", r.DasarPerhitungan)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranCompany)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranEmployee)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranBPJS)</td>
+                        <td>@r.DOB</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="14" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnEdit").show();
+            $("#btnDelete").show();
+            $("#btnExport").show();
+        } else {
+            $("#btnEdit").hide();
+            $("#btnDelete").hide();
+            $("#btnExport").hide();
+        }
+    });
+</script>

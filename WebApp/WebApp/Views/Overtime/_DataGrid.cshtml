@@ -1,0 +1,100 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="checkAll" /></th>
+            <th>Periode</th>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Basic Salary + Position Allw.<br />FIXED ALLOWANCE</th>
+            <th>Base Day</th>
+            <th>Additional Meal</th>
+            <th>Adjustment Meal</th>
+            <th>Additional Transport</th>
+            <th>Adjustment Transport</th>
+            <th>1st 1 HOUR<br />TOT. HOURS</th>
+            <th>AMOUNT</th>
+            <th>NEXT 7 HOURS<br />T. HOURS</th>
+            <th>AMOUNT</th>
+            <th>NEXT 8 HOURS<br />T. HOURS</th>
+            <th>AMOUNT</th>
+            <th>NEXT 9 HOURS<br />T. HOURS</th>
+            <th>AMOUNT</th>
+            <th>GRAND TOTAL<br />HOURS</th>
+            <th>AMOUNT</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td><input type="checkbox" data-key="@r.Periode;@r.NIK" class="checkboxes" /></td>
+                        <td>@r.Periode</td>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@r.Position</td>
+                        <td>@string.Format("{0:#,0.00}", r.Salary)</td>
+                        <td>@r.BaseDay</td>
+                        <td>@r.AdditionalMeal</td>
+                        <td>@r.AdjustmentMeal</td>
+                        <td>@r.AdditionalTransport</td>
+                        <td>@r.AdjustmentTransport</td>
+                        <td>@r.TotalHour1</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalAmount1)</td>
+                        <td>@r.TotalHour7</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalAmount7)</td>
+                        <td>@r.TotalHour8</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalAmount8)</td>
+                        <td>@r.TotalHour9</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalAmount9)</td>
+                        <td>@r.GrandTotalHour</td>
+                        <td>@string.Format("{0:#,0.00}", r.GrandTotalAmount)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="15" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnExport").prop("disabled", false);
+        } else {
+            $("#btnExport").prop("disabled", true);
+        }
+    });
+</script>

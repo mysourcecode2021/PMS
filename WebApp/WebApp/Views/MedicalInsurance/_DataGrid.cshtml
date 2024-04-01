@@ -1,0 +1,84 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="checkAll" /></th>
+            <th>Periode</th>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Medical Ins.</th>
+            <th>Total Medical Ins.</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td><input type="checkbox" data-key="@r.MedicalId" class="checkboxes" /></td>
+                        <td>@r.Periode</td>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@r.Duration</td>
+                        <td>@string.Format("{0:#,0.00}", r.Iuran)</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalIuran)</td>
+                        <td>@r.Status</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" id="btnDetail" href="javascript:void(0)" data-key="@r.MedicalId">
+                                Detail
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnEdit").show();
+            $("#btnDelete").show();
+            $("#btnExport").show();
+        } else {
+            $("#btnEdit").hide();
+            $("#btnDelete").hide();
+            $("#btnExport").hide();
+        }
+    });
+</script>

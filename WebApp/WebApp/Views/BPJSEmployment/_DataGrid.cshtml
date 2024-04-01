@@ -1,0 +1,99 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="checkAll" /></th>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Periode</th>
+            <th>KPJ</th>
+            <th>DOB</th>
+            <th>Kep Awal</th>
+            <th>Basic Salary</th>
+            <th>Allowance</th>
+            <th>Salary</th>
+            <th>Iuran JKK</th>
+            <th>Iuran JKM</th>
+            <th>Iuran JHT TK</th>
+            <th>Iuran JHT Company</th>
+            <th>Base Calculation</th>
+            <th>Iuran JP TK</th>
+            <th>Iuran JP Company</th>
+            <th>Total Iuran</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td><input type="checkbox" data-key="@r.NIK|@r.Periode" class="checkboxes" /></td>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@r.Periode</td>
+                        <td>@r.KPJ</td>
+                        <td>@r.DOB</td>
+                        <td>@r.KepAwal</td>
+                        <td>@string.Format("{0:#,0.00}", r.Basicsalary)</td>
+                        <td>@string.Format("{0:#,0.00}", r.Allowance)</td>
+                        <td>@string.Format("{0:#,0.00}", r.Salary)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJKK)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJKM)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJHTTK)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJHTCompany)</td>
+                        <td>@((r.Salary > r.BaseCalculation) ? string.Format("{0:#,0.00}", r.BaseCalculation) : string.Format("{0:#,0.00}", r.Salary))</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJPTK)</td>
+                        <td>@string.Format("{0:#,0.00}", r.IuranJPCompany)</td>
+                        <td>@string.Format("{0:#,0.00}", r.TotalIuran)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="18" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnEdit").show();
+            $("#btnDelete").show();
+            $("#btnExport").show();
+        } else {
+            $("#btnEdit").hide();
+            $("#btnDelete").hide();
+            $("#btnExport").hide();
+        }
+    });
+</script>

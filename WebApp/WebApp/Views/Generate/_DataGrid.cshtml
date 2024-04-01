@@ -1,0 +1,118 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        <tr>
+            <th>NIK</th>
+            <th>Name</th>
+            <th>Periode</th>
+            @if(ViewBag.PaymentType == "Monthly")
+            {
+                <th>Total Work Day</th>
+                <th>Total Income</th>
+                <th>Total Deduction</th>
+                <th>Take Home Pay</th>
+                <th>Generate Date</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            }
+            else if (ViewBag.PaymentType == "THR")
+            {
+                <th>Basic Salary</th>
+                <th>Total Month Work</th>
+                <th>THR Amount</th>
+                <th>Generate Date</th>
+            }
+            else if (ViewBag.PaymentType == "Bonus")
+            {
+                <th>Basic Salary</th>
+                <th>Rate</th>
+                <th>Bonus Amount</th>
+                <th>Generate Date</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td>@r.NIK</td>
+                        <td>@r.Name</td>
+                        <td>@r.Periode</td>
+                        @if(ViewBag.PaymentType == "Monthly")
+                        {
+                            <td>@r.Total_Work_Day</td>
+                            <td>@string.Format("{0:#,0.00}", r.TotalIncome)</td>
+                            <td>@string.Format("{0:#,0.00}", r.TotalDeduction)</td>
+                            <td>@string.Format("{0:#,0.00}", r.TakeHomePay)</td>
+                            <td>@r.GenerateDate.ToString("MM/dd/yyyy")</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" id="btnDetail" href="javascript:void(0)" data-value="@r.NIK|@r.Name|@r.Periode|@r.Total_Work_Day|@r.Total_OT|@r.PaymentId">
+                                    Detail
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" id="btnSlip" href="/Generate/DownloadSlip?paymentId=@r.PaymentId">
+                                    Slip Salary
+                                </a>
+                            </td>
+                        }
+                        else if (ViewBag.PaymentType == "THR")
+                        {
+                            <td>@string.Format("{0:#,0.00}", r.BasicSalary)</td>
+                            <td>@r.TotalMonthWork</td>
+                            <td>@string.Format("{0:#,0.00}", r.THRAmount)</td>
+                            <td>@r.GenerateDate.ToString("MM/dd/yyyy")</td>
+                        }
+                        else if (ViewBag.PaymentType == "Bonus")
+                        {
+                            <td>@string.Format("{0:#,0.00}", r.BasicSalary)</td>
+                            <td>@r.Rate</td>
+                            <td>@((r.BonusAmount != null) ? string.Format("{0:#,0.00}", r.BonusAmount) : "")</td>
+                            <td>@r.GenerateDate.ToString("MM/dd/yyyy")</td>
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnExport").prop("disabled", false);
+        } else {
+            $("#btnExport").prop("disabled", true);
+        }
+    });
+</script>

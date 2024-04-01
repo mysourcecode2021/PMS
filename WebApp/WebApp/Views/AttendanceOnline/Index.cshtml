@@ -1,0 +1,172 @@
+﻿
+@{
+    Layout = "_LayoutNoMenu";
+
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Attendance Online</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6 text-center">
+        <button type="button" class="btn btn-block bg-gradient-info btn-lg" id="btnClockIn">Clock In</button>
+    </div>
+    <div class="col-md-6 text-center">
+        <button type="button" class="btn btn-block bg-gradient-warning btn-lg" id="btnClockOut">Clock Out</button>
+    </div>
+</div>
+
+<div class="modal fade" id="_modal-form" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Verification OTP</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <input type="text" data-name="Category" class="form-control _formInput" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label>Verification Type</label>
+                        <select data-name="Type" class="form-control _formInput" onchange="setForm()">
+                            <option value="Email">Email</option>
+                            <option value="Phone">Phone Number</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="lblEmail">Email</label>
+                        <input type="text" data-name="Email" class="form-control _formInput" placeholder="Email" />
+                        <br />
+                        <button type="button" class="btn btn-primary" id="btnSend">Send</button>
+                    </div>
+                    <hr />
+                    <div class="form-group" id="inputOTP" style="display: none">
+                        <label>OTP</label>
+                        <input type="text" data-name="OTP" class="form-control _formInput" placeholder="OTP" />
+                        <br />
+                        <input type="hidden" data-name="UserId" class="form-control _formInput" />
+                        <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $("#btnClockIn").click(function () {
+            $("[data-name='Category']").val("ClockIn");
+            $("#_modal-form").modal("show");
+        });
+
+        $("#btnClockOut").click(function () {
+            $("[data-name='Category']").val("ClockOut");
+            $("#_modal-form").modal("show");
+        });
+
+        $("#btnSend").click(function () {
+            if ($("[data-name='Email']").val() == "") {
+                toastr.error("Email is Required.");
+                return;
+            }
+
+            var param = {};
+            $("._formInput").each(function (i, obj) {
+                param[$(obj).attr("data-name")] = this.value;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/AttendanceOnline/SendProcess",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    if (result.indexOf("Success") != -1) {
+                        toastr.success(result);
+                        $("#inputOTP").show();
+                    } else {
+                        toastr.error(result);
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+
+        $("#btnSubmit").click(function () {
+            var userId = getParameterByName('u');
+            $("[data-name='UserId']").val(userId);
+
+            if ($("[data-name='OTP']").val() == "") {
+                toastr.error("OTP is Required.");
+                return;
+            }
+
+            var param = {};
+            $("._formInput").each(function (i, obj) {
+                param[$(obj).attr("data-name")] = this.value;
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/AttendanceOnline/SubmitOTP",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    if (result.indexOf("Success") != -1) {
+                        toastr.success(result);
+                    } else {
+                        toastr.error(result);
+                    }
+                    $("._formInput").val("");
+                    $("#inputOTP").hide();
+                    $("#_modal-form").modal("hide");
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+    })
+
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function setForm() {
+        if ($("[data-name='Type']").val() == "Email") {
+            $("#lblEmail").text("Email");
+            $("[data-name='Email']").attr("placeholder", "Email");
+        } else {
+            $("#lblEmail").text("Phone Number");
+            $("[data-name='Email']").attr("placeholder", "Phone Number");
+        }
+    }
+</script>

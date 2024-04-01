@@ -1,0 +1,579 @@
+﻿
+@{
+    ViewData["Title"] = "Employee";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Employee</h3>
+        <div class="card-tools">
+            <a class="btn btn-primary btn-sm" id="btnSearch" href="javascript:void(0)">
+                <i class="fas fa-search">
+                </i>
+                Search
+            </a>
+            <a class="btn btn-danger btn-sm" id="btnClear" href="javascript:void(0)">
+                <i class="fas fa-eraser">
+                </i>
+                Clear
+            </a>
+
+            <a class="btn btn-primary btn-sm" id="btnAdd" href="javascript:void(0)">
+                <i class="fas fa-plus">
+                </i>
+                Add
+            </a>
+            <a class="btn btn-warning btn-sm" id="btnEdit" href="javascript:void(0)">
+                <i class="fas fa-pencil-alt">
+                </i>
+                Edit
+            </a>
+            <a class="btn btn-danger btn-sm" id="btnDelete" href="javascript:void(0)">
+                <i class="fas fa-trash">
+                </i>
+                Delete
+            </a>
+
+            <a class="btn btn-secondary btn-sm" id="btnExport" href="javascript:void(0)">
+                <i class="fas fa-file-export">
+                </i>
+                Export Data
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row table-responsive" id="_content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="_modal-form" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Form Employee</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="_formId">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>NIK<font color='red'>*</font></label>
+                                    <input type="text" name="NIK" data-name="NIK" class="form-control _formInput mandatory isKey" placeholder="NIK" />
+                                </div>
+                                <div class="form-group">
+                                    <label>FingerId<font color='red'>*</font></label>
+                                    <input type="number" name="FingerId" data-name="FingerId" class="form-control _formInput mandatory" placeholder="Finger Id" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Name<font color='red'>*</font></label>
+                                    <input type="text" name="Name" data-name="Name" class="form-control _formInput mandatory" placeholder="Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender<font color='red'>*</font></label>
+                                    <select name="Gender" data-name="Gender" class="form-control _formInput mandatory" placeholder="Gender">
+                                        <option value="">--Gender--</option>
+                                        <option value="L">Male</option>
+                                        <option value="P">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Place DOB<font color='red'>*</font></label>
+                                    <input type="text" name="PlaceDOB" data-name="PlaceDOB" class="form-control _formInput mandatory" placeholder="Place DOB" />
+                                </div>
+                                <div class="form-group">
+                                    <label>DOB<font color='red'>*</font></label>
+                                    <input type="text" name="DOB" data-name="DOB" class="form-control date-format _formInput mandatory" placeholder="DOB" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Marital Status<font color='red'>*</font></label>
+                                    <select name="MaritalStatus" data-name="MaritalStatus" class="form-control _formInput mandatory" placeholder="MaritalStatus">
+                                        <option value="">--Marital Status--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["MaritalStatus"]!)
+                                        {
+                                            <option value="@r.SystemCode">@r.SystemValue</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>NPWP<font color='red'>*</font></label>
+                                    <input type="text" name="NPWP" data-name="NPWP" class="form-control _formInput mandatory" placeholder="NPWP" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Status Karyawan Asing</label>
+                                    <select name="StatusKryAsing" data-name="StatusKryAsing" class="form-control _formInput" placeholder="Status Karyawan Asing">
+                                        <option value="">Status Karyawan Asing</option>
+                                        <option value="Y">Ya</option>
+                                        <option value="N">Tidak</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Address<font color='red'>*</font></label>
+                                    <input type="text" name="Address" data-name="Address" class="form-control _formInput mandatory" placeholder="Address" />
+                                </div>
+                                <div class="form-group">
+                                    <label>City<font color='red'>*</font></label>
+                                    <input type="text" name="City" data-name="City" class="form-control _formInput mandatory" placeholder="City" />
+                                </div>
+                                <div class="form-group">
+                                    <label>ContactNo</label>
+                                    <input type="text" name="ContactNo" data-name="ContactNo" class="form-control _formInput" placeholder="ContactNo" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" name="Email" data-name="Email" class="form-control _formInput" placeholder="Email" />
+                                </div>
+                                <div class="form-group">
+                                    <label>KTP / ID Card</label>
+                                    <input type="text" name="IDCard" data-name="IDCard" class="form-control _formInput" placeholder="KTP / ID Card" />
+                                </div>
+                                <div class="form-group">
+                                    <label>PKWTT<font color='red'>*</font></label>
+                                    <select name="PKWTT" data-name="PKWTT" class="form-control _formInput mandatory" placeholder="PKWTT">
+                                        <option value="">--PKWTT--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["PKWTT"]!)
+                                        {
+                                            <option value="@r.SystemCode">@r.SystemValue</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Marital Type<font color='red'>*</font></label>
+                                    <select name="MaritalType" data-name="MaritalType" class="form-control _formInput mandatory" placeholder="Marital Type">
+                                        <option value="">--Marital Status--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["MaritalType"]!)
+                                        {
+                                            <option value="@r.SystemCode">@r.SystemValue</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kode Objek Pajak</label>
+                                    <input type="text" name="KodeObjekPajak" data-name="KodeObjekPajak" class="form-control _formInput" placeholder="Kode Objek Pajak" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Kode Negara</label>
+                                    <input type="text" name="KodeNegara" data-name="KodeNegara" class="form-control _formInput" placeholder="Kode Negara" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Join Date<font color='red'>*</font></label>
+                                    <input type="text" name="JoinDate" data-name="JoinDate" class="form-control date-format _formInput mandatory" placeholder="JoinDate" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Name<font color='red'>*</font></label>
+                                    <input type="text" name="BankName" data-name="BankName" class="form-control _formInput mandatory" placeholder="Bank Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Bank Account<font color='red'>*</font></label>
+                                    <input type="text" name="BankAccount" data-name="BankAccount" class="form-control _formInput mandatory" placeholder="Bank Account" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Department<font color='red'>*</font></label>
+                                    <select name="DepartmentId" data-name="DepartmentId" class="form-control _formInput mandatory" placeholder="Department">
+                                        <option value="">--Department--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["Department"]!)
+                                        {
+                                            <option value="@r.DepartmentId">@r.DepartmentName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Position<font color='red'>*</font></label>
+                                    <select name="PositionId" data-name="PositionId" class="form-control _formInput mandatory" placeholder="Position">
+                                        <option value="">--Position--</option>
+                                        @foreach (var r in (List<dynamic>)ViewData["Position"]!)
+                                        {
+                                            <option value="@r.PositionId">@r.PositionName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status<font color='red'>*</font></label>
+                                    <select name="Status" data-name="Status" class="form-control _formInput mandatory" placeholder="Status">
+                                        <option value="">--Status--</option>
+                                        <option value="Active">Active</option>
+                                        <option value="NonActive">Non Active</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Flag Salary<font color='red'>*</font></label>
+                                    <select name="FlagSalary" data-name="FlagSalary" class="form-control _formInput mandatory" placeholder="Flag Salary">
+                                        <option value="">--Flag Salary--</option>
+                                        <option value="0">No Deduction</option>
+                                        <option value="1">Deduction for absence per day</option>
+                                        <option value="2">Deduction for absence prorate</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Flag Overtime<font color='red'>*</font></label>
+                                    <select name="FlagOT" data-name="FlagOT" class="form-control _formInput mandatory" placeholder="Flag Overtime">
+                                        <option value="">--Flag Overtime--</option>
+                                        <option value="1">Overtime</option>
+                                        <option value="0">No Overtime</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Jumlah Tanggungan</label>
+                                    <input type="text" name="JumlahTanggungan" data-name="JumlahTanggungan" class="form-control _formInput" placeholder="Jumlah Tanggungan" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="hidden" data-name="Action" class="_formInput" />
+                        <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        getData(1, "Clear");
+
+        $(document).on('click', '#checkAll', function (e) {
+            if (this.checked) {
+                $(".checkboxes").prop("checked", true);
+            } else {
+                $(".checkboxes").prop("checked", false);
+            }
+        });
+
+        $("#btnSearch").click(function () {
+            getData(1);
+        });
+
+        $("#btnClear").click(function () {
+            $("._searchCriteria").val("");
+            getData(1, "Clear");
+        });
+
+        $("#btnAdd").click(function () {
+            $("._formInput").val("");
+            $(".isKey").prop("disabled", false);
+            $("[data-name='Action']").val("Add");
+            generateNIK();
+            $("#_modal-form").modal("show");
+        });
+
+        $("#btnEdit").click(function () {
+            var key = "";
+            $("#_grid tbody input[type=checkbox]:checked").each(function () {
+                key += "|" + $(this).attr("data-key");
+            });
+            key = (key != "") ? ("|" + key).replace("||", "") : key;
+            if (key == "") {
+                toastr.error("Data has not been selected");
+                return;
+            }
+            if (key.split("|").length > 1) {
+                toastr.error("Only one data can be selected");
+                return;
+            }
+
+            var param = {};
+            param["Param"] = key;
+            param["Type"] = "GetByKey";
+
+            $.ajax({
+                type: "POST",
+                url: "/Employee/GetDataByKey",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    var row = result[0];
+
+                    $("._formInput").each(function (i, obj) {
+                        if ($(obj).attr("class").indexOf("isKey") > 0) {
+                            $(obj).prop("disabled", "true");
+                        }
+                        $(obj).val(row[$(obj).attr("data-name")]);
+                    });
+                    $("[data-name='Action']").val("Edit");
+                    $("#_modal-form").modal("show");
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+
+        $("#btnDelete").click(function () {
+            var key = "";
+            $("#_grid tbody input[type=checkbox]:checked").each(function () {
+                key += "|" + $(this).attr("data-key");
+            });
+            key = (key != "") ? ("|" + key).replace("||", "") : key;
+            if (key == "") {
+                toastr.error("Data has not been selected");
+                return;
+            }
+            
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This data will be deleted!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, do it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var param = {};
+                    param["KeyValue"] = key;
+                    param["Action"] = "Delete";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Employee/SaveProcess",
+                        data: JSON.stringify(param),
+                        contentType: "application/json; charset=utf-8",
+                        beforeSend: function () {
+                            $('.btn').prop('disabled', true);
+                        },
+                        complete: function () {
+                            $('.btn').prop('disabled', false);
+                        },
+                        success: function (result) {
+                            if (result == "Success") {
+                                toastr.success("Data has been processed successfully");
+                                getData(1);
+                            } else {
+                                toastr.error(result);
+                            }
+                        },
+                        error: function (result) {
+                            toastr.error(result.responseText);
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#btnExport").click(function() {
+            var param = {};
+            var pValue = "";
+            $("._searchCriteria").each(function (i, obj) {
+                pValue += this.value + ";";
+            });
+            param["Param"] = pValue;
+            param["Type"] = "Export";
+            
+            $.ajax({
+                type: "POST",
+                url: "/Employee/ExportExcel",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    var bytes = base64ToBytes(result);
+                    var blob = new Blob([bytes], { type: "application/octetstream" });
+
+                    var date = new Date();
+                    var dateStr =
+                        ("00" + (date.getMonth() + 1)).slice(-2) +
+                        ("00" + date.getDate()).slice(-2) +
+                        date.getFullYear() +
+                        ("00" + date.getHours()).slice(-2) +
+                        ("00" + date.getMinutes()).slice(-2) +
+                        ("00" + date.getSeconds()).slice(-2);
+                    var filename = "Data_" + dateStr + ".xlsx";
+
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var url = window.URL || window.webkitURL;
+                        var link = url.createObjectURL(blob);
+                        var a = $("<a />");
+                        a.attr("download", filename);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+
+        $("#btnSave").click(function() {
+            var isRules = {};
+            var isMessages = {};
+            $("._formInput").each(function (i, obj) {
+                if ($(obj).attr("class").toLowerCase().indexOf("mandatory") > 0) {
+                    isRules[$(obj).attr("data-name")] = { required: true };
+                    isMessages[$(obj).attr("data-name")] = { required: "Please enter a " + $(obj).attr("placeholder") };
+                }
+            });
+
+            $("#_formId").validate({
+                rules: isRules,
+                messages: isMessages,
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+                submitHandler: function (res) {
+                    onSaveProcess();
+                }
+            });
+        });
+    });
+
+    getData = function (page = 1, act = "") {
+        var param = {};
+        var pValue = "";
+        $("._searchCriteria").each(function (i, obj) {
+            pValue += this.value + ";";
+        });
+        param["Param"] = (act == "Clear") ? "-1" : pValue;
+        param["PageNumber"] = page;
+        param["RowsOfPage"] = ($(".pageSize").val() == undefined) ? 10 : $(".pageSize").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Employee/GetData",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $('.btn').prop('disabled', true);
+            },
+            complete: function () {
+                $('.btn').prop('disabled', false);
+            },
+            success: function (result) {
+                $("#_content").html(result);
+
+                if (act == "") {
+                    var parValue = param.Param.split(";");
+                    var seq = 0;
+                    $("._searchCriteria").each(function (i, obj) {
+                        $(obj).val(parValue[seq]);
+                        seq++;
+                    });
+                }
+            },
+            error: function (result) {
+                toastr.error(result.responseText);
+            }
+        });
+    }
+
+    onSaveProcess = function () {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This data will be processed!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var param = {};
+                $("._formInput").each(function (i, obj) {
+                    param[$(obj).attr("data-name")] = this.value;
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Employee/SaveProcess",
+                    data: JSON.stringify(param),
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                        $('.btn').prop('disabled', true);
+                    },
+                    complete: function () {
+                        $('.btn').prop('disabled', false);
+                    },
+                    success: function (result) {
+                        if (result == "Success") {
+                            toastr.success("Data has been processed successfully");
+                            $("._formInput").val("");
+                            $("._formInput").prop("disabled", false);
+                            $("#_modal-form").modal("hide");
+                            getData(1);
+                        } else {
+                            toastr.error(result);
+                        }
+                    },
+                    error: function (result) {
+                        toastr.error(result.responseText);
+                    }
+                });
+            }
+        });
+    }
+
+    base64ToBytes = function (base64) {
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    searchFilter = function (e) {
+        if (e.keyCode === 13) {
+            getData(1);
+        }
+    }
+
+    generateNIK = function () {
+        $.ajax({
+            type: "POST",
+            url: "/Employee/GenerateNIK",
+            data: null,
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $('.btn').prop('disabled', true);
+            },
+            complete: function () {
+                $('.btn').prop('disabled', false);
+            },
+            success: function (result) {
+                $("[name='NIK']").val(result);
+            },
+            error: function (result) {
+                toastr.error(result.responseText);
+            }
+        });
+    }
+</script>

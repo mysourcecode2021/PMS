@@ -1,0 +1,74 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th>
+                <select id="TarifId" class="form-control _searchCriteria" onchange="getDataByTarif(this)">
+                    <option value="">Tarif Id</option>
+                    <option value="TER_A">Tarif Effective Rate A</option>
+                    <option value="TER_B">Tarif Effective Rate B</option>
+                    <option value="TER_C">Tarif Effective Rate C</option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th><input type="checkbox" id="checkAll" /></th>
+            <th>Amount From</th>
+            <th>Amount To</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                foreach(var r in data.Data)
+                {
+                    <tr>
+                        <td><input type="checkbox" data-key="@r.Id" class="checkboxes" /></td>
+                        <td>@string.Format("{0:#,0.00}", r.AmountFrom)</td>
+                        <td>@string.Format("{0:#,0.00}", (r.AmountTo == null) ? 0 : r.AmountTo)</td>
+                        <td>@r.Rate</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnEdit").show();
+            $("#btnDelete").show();
+            $("#btnExport").show();
+        } else {
+            $("#btnEdit").hide();
+            $("#btnDelete").hide();
+            $("#btnExport").hide();
+        }
+    });
+</script>

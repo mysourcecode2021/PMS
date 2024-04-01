@@ -1,0 +1,134 @@
+﻿@{
+    var data = (PagingModel<List<dynamic>>)ViewData["DataList"]!;
+}
+
+@if (data != null)
+{
+    if (data.TotalRecords > 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                @await Html.PartialAsync("~/Views/Shared/_Paging.cshtml", data)
+            </div>
+        </div>
+    }
+}
+
+<table class="table table-head-fixed text-nowrap table-striped" id="_grid">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+            <th><input type="text" class="form-control _searchCriteria" onkeypress="searchFilter(event)" /></th>
+        </tr>
+        @if (ViewBag.PaymentType == "Monthly" || ViewBag.PaymentType == "MonthlyWithBPJS")
+        {
+            @foreach (IDictionary<string, object> row in data!.Data)
+            {
+                <tr>
+                    @foreach (var r in row)
+                    {
+                        <th>@r.Key.Replace("_", " ")</th>
+                    }
+                </tr>
+                break;
+            }
+        }
+        else
+        {
+            <tr>
+                @if (ViewBag.PaymentType == "THR")
+                {
+                    <th>Periode</th>
+                    <th>NIK</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Basic Salary</th>
+                    <th>Total Month Work</th>
+                    <th>THR Amount</th>
+                }
+                else if (ViewBag.PaymentType == "Bonus")
+                {
+                    <th>Periode</th>
+                    <th>NIK</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Basic Salary</th>
+                    <th>Rate</th>
+                    <th>Bonus Amount</th>
+                }
+            </tr>
+        }
+    </thead>
+    <tbody>
+        @if (data != null)
+        {
+            if (data.Data.Count > 0)
+            {
+                @if (ViewBag.PaymentType == "Monthly" || ViewBag.PaymentType == "MonthlyWithBPJS")
+                {
+                    @foreach (IDictionary<string, object> row in data.Data)
+                    {
+                        <tr>
+                            @foreach (var r in row)
+                            {
+                                if (r.Key == "PaymentId" || r.Key == "Periode" || r.Key == "NIK" || r.Key == "Name" || r.Key == "Department" || r.Key == "Position" || r.Key == "Total_Work_Day" || r.Key == "Total_OT" || r.Key == "GenerateDate")
+                                {
+                                    <td>@Html.Raw(r.Value)</td>
+                                }
+                                else
+                                {
+                                    <td>@string.Format("{0:#,0.00}", r.Value)</td>
+                                }
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    foreach (var r in data.Data)
+                    {
+                        <tr>
+                            <td>@r.Periode</td>
+                            <td>@r.NIK</td>
+                            <td>@r.Name</td>
+                            <td>@r.DepartmentName</td>
+                            <td>@r.PositionName</td>
+                            @if (ViewBag.PaymentType == "THR")
+                            {
+                                <td>@string.Format("{0:#,0.00}", r.BasicSalary)</td>
+                                <td>@r.TotalMonthWork</td>
+                                <td>@string.Format("{0:#,0.00}", r.THRAmount)</td>
+                            }
+                            else if (ViewBag.PaymentType == "Bonus")
+                            {
+                                <td>@string.Format("{0:#,0.00}", r.BasicSalary)</td>
+                                <td>@r.Rate</td>
+                                <td>@((r.BonusAmount != null) ? string.Format("{0:#,0.00}", r.BonusAmount) : "")</td>
+                            }
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10" align="center"><b>Data Not Found</b></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        var cn = "@data?.Data.Count";
+        if (cn != "0") {
+            $("#btnExport").prop("disabled", false);
+        } else {
+            $("#btnExport").prop("disabled", true);
+        }
+    });
+</script>

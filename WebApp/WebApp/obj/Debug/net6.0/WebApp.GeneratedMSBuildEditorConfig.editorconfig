@@ -1,0 +1,285 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebApp
+build_property.RootNamespace = WebApp
+build_property.ProjectDir = C:\MY_WORK\Request\WebApp\WebApp\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\MY_WORK\Request\WebApp\WebApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/AttendanceOnline/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZU9ubGluZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Attendance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Attendance/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Benefit/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVuZWZpdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Benefit/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmVuZWZpdFxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BonusEmployee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9udXNFbXBsb3llZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BonusEmployee/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9udXNFbXBsb3llZVxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BonusRate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9udXNSYXRlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BonusRate/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9udXNSYXRlXF9EYXRhR3JpZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BPJSEmployment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQlBKU0VtcGxveW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BPJSEmployment/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQlBKU0VtcGxveW1lbnRcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BPJSHealth/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQlBKU0hlYWx0aFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/BPJSHealth/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQlBKU0hlYWx0aFxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Calendar/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Calendar/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ChangePassword/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hhbmdlUGFzc3dvcmRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Department/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Department/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Employee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Employee/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Generate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Generate/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhdGVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Loan/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Loan/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/LoginAD/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5BRFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/MappingBonusRate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFwcGluZ0JvbnVzUmF0ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/MappingBonusRate/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFwcGluZ0JvbnVzUmF0ZVxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/MedicalInsurance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbEluc3VyYW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/MedicalInsurance/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbEluc3VyYW5jZVxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Overtime/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3ZlcnRpbWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Overtime/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3ZlcnRpbWVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Position/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Position/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9zaXRpb25cX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportBPJSKes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0QlBKU0tlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportBPJSKes/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0QlBKU0tlc1xfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportBPJSTK/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0QlBKU1RLXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportBPJSTK/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0QlBKU1RLXF9EYXRhR3JpZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportMI/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0TUlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportMI/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0TUlcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportPayment/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0UGF5bWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportPayment/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0UGF5bWVudFxfRGF0YUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportPPh21/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0UFBoMjFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportPPh21/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0UFBoMjFcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/ReportToBank/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0VG9CYW5rXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/SalaryEmployee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5RW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/SalaryEmployee/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5RW1wbG95ZWVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Salary/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Salary/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5XF9EYXRhR3JpZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Shared/_Paging.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/SystemMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtTWFzdGVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/SystemMaster/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtTWFzdGVyXF9EYXRhR3JpZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/TarifEffective/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZFZmZlY3RpdmVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/TarifEffective/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyaWZFZmZlY3RpdmVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/THREmployee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVEhSRW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/THREmployee/_DataGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVEhSRW1wbG95ZWVcX0RhdGFHcmlkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-7882z672yd
+
+[C:/MY_WORK/Request/WebApp/WebApp/Views/Shared/_LayoutNoMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXROb01lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-rq6h8m00gf

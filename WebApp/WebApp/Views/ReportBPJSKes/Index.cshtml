@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Report BPJS Health</h3>
+        <div class="card-tools col-md-10">
+            <div class="input-group">
+                <input type="text" class="form-control dpMonth" id="Periode" />
+                @*<select class="custom-select" id="PeriodeYear">
+                    <option value="">--Year--</option>
+                    @foreach (var r in (List<dynamic>)ViewData["YEAR"]!)
+                    {
+                        <option value="@r.SystemCode">@r.SystemValue</option>
+                    }
+                </select>
+                <select class="custom-select" id="PeriodeMonth">
+                    <option value="">--Month--</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="08">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>*@
+                <div class="input-group-append">
+                    &nbsp;
+                    <button class="btn btn-primary btn-sm" type="button" id="btnSearch">
+                        <i class="fas fa-search">
+                        </i>
+                        Search
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-danger btn-sm" type="button" id="btnClear">
+                        <i class="fas fa-eraser">
+                        </i>
+                        Clear
+                    </button>
+                    &nbsp;
+                    <button class="btn btn-secondary btn-sm" type="button" id="btnExport" disabled>
+                        <i class="fas fa-file-export">
+                        </i>
+                        Export Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row table-responsive" id="_content">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#btnSearch").click(function () {
+            getData(1);
+        });
+
+        $("#btnClear").click(function () {
+            $("._searchCriteria").val("");
+            $("#Periode").val("");
+            getData(1, "Clear");
+        });
+
+        $("#btnExport").click(function() {
+            var param = {};
+            var pValue = "";
+            $("._searchCriteria").each(function (i, obj) {
+                pValue += this.value + ";";
+            });
+            param["Param"] = pValue;
+            param["ParamHeader"] = $("#Periode").val();
+            param["Type"] = "GetExportBPJS";
+            
+            $.ajax({
+                type: "POST",
+                url: "/ReportBPJSKes/ExportExcel",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function () {
+                    $('.btn').prop('disabled', true);
+                },
+                complete: function () {
+                    $('.btn').prop('disabled', false);
+                },
+                success: function (result) {
+                    var bytes = base64ToBytes(result);
+                    var blob = new Blob([bytes], { type: "application/octetstream" });
+
+                    var date = new Date();
+                    var dateStr =
+                        ("00" + (date.getMonth() + 1)).slice(-2) +
+                        ("00" + date.getDate()).slice(-2) +
+                        date.getFullYear() +
+                        ("00" + date.getHours()).slice(-2) +
+                        ("00" + date.getMinutes()).slice(-2) +
+                        ("00" + date.getSeconds()).slice(-2);
+                    var filename = "Data_" + dateStr + ".xlsx";
+
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var url = window.URL || window.webkitURL;
+                        var link = url.createObjectURL(blob);
+                        var a = $("<a />");
+                        a.attr("download", filename);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                },
+                error: function (result) {
+                    toastr.error(result.responseText);
+                }
+            });
+        });
+    });
+
+    getData = function (page = 1, act = "") {
+        var param = {};
+        var pValue = "";
+        $("._searchCriteria").each(function (i, obj) {
+            pValue += this.value + ";";
+        });
+        param["Param"] = (act == "Clear") ? "-1" : pValue;
+        param["ParamHeader"] = $("#Periode").val();
+        param["PageNumber"] = page;
+        param["RowsOfPage"] = ($(".pageSize").val() == undefined) ? 10 : $(".pageSize").val();
+        param["Type"] = "GetReportBPJS";
+
+        $.ajax({
+            type: "POST",
+            url: "/ReportBPJSKes/GetData",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function () {
+                $('.btn').prop('disabled', true);
+            },
+            complete: function () {
+                $('.btn').prop('disabled', false);
+            },
+            success: function (result) {
+                $("#_content").html(result);
+
+                if (act == "") {
+                    var parValue = param.Param.split(";");
+                    var seq = 0;
+                    $("._searchCriteria").each(function (i, obj) {
+                        $(obj).val(parValue[seq]);
+                        seq++;
+                    });
+                }
+            },
+            error: function (result) {
+                toastr.error(result.responseText);
+            }
+        });
+    }
+
+    base64ToBytes = function (base64) {
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    searchFilter = function (e) {
+        if (e.keyCode === 13) {
+            getData(1);
+        }
+    }
+</script>
